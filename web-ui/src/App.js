@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import SecuredPage from "./pages/SecuredPage";
 import keycloak from "./keycloak";
 import PrivateRoute from "./helpers/PrivateRoute";
+import MyAccount from "./pages/MyAccount";
 
 function App() {
 	return (
@@ -23,6 +24,13 @@ function App() {
 								element={
 									<PrivateRoute>
 										<SecuredPage />
+									</PrivateRoute>
+								} />
+							<Route 
+								path="/me" 
+								element={
+									<PrivateRoute>
+										<MyAccount />
 									</PrivateRoute>
 								} />
 						</Routes>

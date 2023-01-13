@@ -1,5 +1,8 @@
 import { Box, Button, Container, Divider, HStack, Link, Spacer, Text } from "@chakra-ui/react"
 import { useKeycloak } from "@react-keycloak/web";
+import { useNavigate } from "react-router-dom";
+import AccountPreview from "../account-preview";
+import AuthButtons from "../auth-buttons";
 
 const Navbar = () => {
     const { keycloak, initialized } = useKeycloak();
@@ -14,27 +17,10 @@ const Navbar = () => {
                     <Spacer />
                     <Link href="/secured" w='full'>Secured page</Link>
                     <Box w='full' textAlign={'end'}>
-                        {!keycloak.authenticated && (
-                            <>
-                                <Button variant={'ghost'} onClick={() => keycloak.login()}>
-                                    Sign in
-                                </Button>
-                                <Button variant={'ghost'}>
-                                    Sign up
-                                </Button>
-                            </>
-                        )}
+                        { !keycloak.authenticated && (<AuthButtons />) }
 
-                        {!!keycloak.authenticated && (
-                            <Button
-                                variant={'ghost'}
-                                onClick={() => keycloak.logout()}
-                                >
-                                Logout ({keycloak.tokenParsed.preferred_username})
-                            </Button>
-                        )}
+                        {!!keycloak.authenticated && (<AccountPreview />)}
                     </Box>
-                    
                 </HStack>
             </Container>
             <Divider mb={5} />
